@@ -40,13 +40,18 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "adc.h"
+#include "dac.h"
+#include "dma.h"
 #include "i2c.h"
+#include "tim.h"
 #include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include <string.h>
+#include "HD44780.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -67,7 +72,11 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+uint32_t adc[4];
+double onePointADC = 3.3/4095;
+uint8_t enableExti = 1;
+uint8_t choseProgram = 0;
+uint8_t aceptProgram = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -78,6 +87,68 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
+	if(enableExti == 1){
+		enableExti = 0;
+		if(GPIO_Pin == P1_Pin){
+			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+			if (aceptProgram == 1){
+				aceptProgram = 0;
+			}
+			else{
+				if (choseProgram > 0)
+				choseProgram--;
+			}
+
+		}
+		else if(GPIO_Pin == P3_Pin){
+			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+			if(aceptProgram != 1)
+				choseProgram++;
+		}
+		else if(GPIO_Pin == P2_Pin){
+			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+			if(choseProgram != 0)
+				aceptProgram = 1;
+		}
+	}
+}
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
+	static uint16_t a = 0;
+	if(htim->Instance == TIM7 || enableExti == 0){
+		a++;
+		if(a == 750){
+			a = 0;
+			enableExti = 1;
+		}
+	}
+}
+
+static void LCD_double(uint32_t a){
+	double x = (3.3 * a)/4095;
+	uint8_t p;
+	if(x > 1){
+		p = x;
+		LCD_WriteData(p + '0');
+	}
+
+	p = x * 10;
+	if (p%10 > 0){
+		LCD_WriteData(',');
+		p = p%10;
+		LCD_WriteData(p + '0');
+	}
+	else{
+		LCD_WriteData(',');
+		LCD_WriteData('0');
+	}
+
+	p = x * 100;
+	if (p%10 > 0){
+		p = p%10;
+		LCD_WriteData(p + '0');
+	}
+}
 
 /* USER CODE END 0 */
 
@@ -88,7 +159,7 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	uint8_t prevProgram = 0xFF;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -109,16 +180,133 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_USART2_UART_Init();
   MX_I2C1_Init();
+  MX_ADC1_Init();
+  MX_DAC1_Init();
+  MX_TIM7_Init();
+  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
-
+  LCD_Initalize();
+  LCD_GoTo(0, 0);
+  HAL_ADC_Start_DMA(&hadc1, adc, 4);
+  HAL_TIM_Base_Start_IT(&htim7);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  if(choseProgram == 0){
+		  if (prevProgram != choseProgram){
+			  LCD_Clear();
+			  LCD_GoTo(0, 0);
+			  LCD_WriteText("Wybierz program");
+			  LCD_GoTo(1, 0);
+			  LCD_WriteText("<--  !OK!  -->");
+			  prevProgram = choseProgram;
+		  }
+	  }
+	  else if(choseProgram == 1){
+		  if (prevProgram != choseProgram){
+			  LCD_Clear();
+			  LCD_GoTo(0, 0);
+			  LCD_WriteText("Pomiar ADC");
+			  LCD_GoTo(1, 0);
+			  LCD_WriteText("<--   OK   -->");
+			  prevProgram = choseProgram;
+		  }
+		  if(aceptProgram){
+			  prevProgram = 0xFF;
+			  LCD_Clear();
+			  LCD_GoTo(0, 0);
+			  LCD_WriteText("A1:");
+			  LCD_GoTo(0, 8);
+			  LCD_WriteText("A2:");
+			  LCD_GoTo(1, 0);
+			  LCD_WriteText("A3:");
+			  LCD_GoTo(1, 8);
+			  LCD_WriteText("A4:");
+			  while(aceptProgram){
+				  LCD_GoTo(0, 3);
+				  LCD_double(adc[0]);
+				  LCD_GoTo(0, 11);
+				  LCD_double(adc[1]);
+				  LCD_GoTo(1, 3);
+				  LCD_double(adc[2]);
+				  LCD_GoTo(1, 11);
+				  LCD_double(adc[3]);
+				  HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+				  HAL_Delay(100);
+			  }
+		  }
+	  }
+	  else if(choseProgram == 2){
+		  if (prevProgram != choseProgram){
+			  LCD_Clear();
+			  LCD_GoTo(0, 0);
+			  LCD_WriteText("Generowanie PWM");
+			  LCD_GoTo(1, 0);
+			  LCD_WriteText("<--   OK   -->");
+			  prevProgram = choseProgram;
+		  }
+	  }
+	  else if(choseProgram == 3){
+		  if (prevProgram != choseProgram){
+			  LCD_Clear();
+			  LCD_GoTo(0, 0);
+			  LCD_WriteText("Test wy. przek.");
+			  LCD_GoTo(1, 0);
+			  LCD_WriteText("<--   OK   -->");
+			  prevProgram = choseProgram;
+		  }
+		  if(aceptProgram){
+			  prevProgram = 0xFF;
+			  LCD_Clear();
+			  LCD_GoTo(0, 0);
+			  LCD_WriteText("P1: 0");
+			  LCD_GoTo(0, 6);
+			  LCD_WriteText("P2: 0");
+			  LCD_GoTo(1, 0);
+			  LCD_WriteText("P3: 0");
+			  LCD_GoTo(1, 6);
+			  LCD_WriteText("P4: 0");
+			  while(aceptProgram){
+				  LCD_GoTo(0, 4);
+				  LCD_WriteText("1");
+				  HAL_GPIO_WritePin(switch1_GPIO_Port, switch1_Pin, GPIO_PIN_SET);
+				  HAL_Delay(1000);
+				  LCD_GoTo(0, 4);
+				  LCD_WriteText("0");
+				  HAL_GPIO_WritePin(switch1_GPIO_Port, switch1_Pin, GPIO_PIN_RESET);
+				  LCD_GoTo(0, 10);
+				  LCD_WriteText("1");
+				  HAL_GPIO_WritePin(switch2_GPIO_Port, switch2_Pin, GPIO_PIN_SET);
+				  HAL_Delay(1000);
+				  LCD_GoTo(0, 10);
+				  LCD_WriteText("0");
+				  HAL_GPIO_WritePin(switch2_GPIO_Port, switch2_Pin, GPIO_PIN_RESET);
+				  LCD_GoTo(1, 4);
+				  LCD_WriteText("1");
+				  HAL_GPIO_WritePin(switch3_GPIO_Port, switch3_Pin, GPIO_PIN_SET);
+				  HAL_Delay(1000);
+				  LCD_GoTo(1, 4);
+				  LCD_WriteText("0");
+				  HAL_GPIO_WritePin(switch3_GPIO_Port, switch3_Pin, GPIO_PIN_RESET);
+				  LCD_GoTo(1, 10);
+				  LCD_WriteText("1");
+				  HAL_GPIO_WritePin(switch4_GPIO_Port, switch4_Pin, GPIO_PIN_SET);
+				  HAL_Delay(1000);
+				  LCD_GoTo(1, 10);
+				  LCD_WriteText("0");
+				  HAL_GPIO_WritePin(switch4_GPIO_Port, switch4_Pin, GPIO_PIN_RESET);
+				  HAL_Delay(500);
+			  }
+		  }
+	  }
+	  HAL_Delay(1);
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -171,9 +359,18 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
-  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2|RCC_PERIPHCLK_I2C1;
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_USART2|RCC_PERIPHCLK_I2C1
+                              |RCC_PERIPHCLK_ADC;
   PeriphClkInit.Usart2ClockSelection = RCC_USART2CLKSOURCE_PCLK1;
   PeriphClkInit.I2c1ClockSelection = RCC_I2C1CLKSOURCE_PCLK1;
+  PeriphClkInit.AdcClockSelection = RCC_ADCCLKSOURCE_PLLSAI1;
+  PeriphClkInit.PLLSAI1.PLLSAI1Source = RCC_PLLSOURCE_MSI;
+  PeriphClkInit.PLLSAI1.PLLSAI1M = 1;
+  PeriphClkInit.PLLSAI1.PLLSAI1N = 16;
+  PeriphClkInit.PLLSAI1.PLLSAI1P = RCC_PLLP_DIV7;
+  PeriphClkInit.PLLSAI1.PLLSAI1Q = RCC_PLLQ_DIV2;
+  PeriphClkInit.PLLSAI1.PLLSAI1R = RCC_PLLR_DIV2;
+  PeriphClkInit.PLLSAI1.PLLSAI1ClockOut = RCC_PLLSAI1_ADC1CLK;
   if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
   {
     Error_Handler();

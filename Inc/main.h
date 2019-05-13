@@ -82,6 +82,17 @@ void Error_Handler(void);
 #define MCO_GPIO_Port GPIOA
 #define VCP_TX_Pin GPIO_PIN_2
 #define VCP_TX_GPIO_Port GPIOA
+#define switch1_Pin GPIO_PIN_0
+#define switch1_GPIO_Port GPIOB
+#define switch2_Pin GPIO_PIN_1
+#define switch2_GPIO_Port GPIOB
+#define switch3_Pin GPIO_PIN_10
+#define switch3_GPIO_Port GPIOA
+#define P3_Pin GPIO_PIN_11
+#define P3_GPIO_Port GPIOA
+#define P3_EXTI_IRQn EXTI15_10_IRQn
+#define switch4_Pin GPIO_PIN_12
+#define switch4_GPIO_Port GPIOA
 #define SWDIO_Pin GPIO_PIN_13
 #define SWDIO_GPIO_Port GPIOA
 #define SWCLK_Pin GPIO_PIN_14
@@ -90,6 +101,12 @@ void Error_Handler(void);
 #define VCP_RX_GPIO_Port GPIOA
 #define LD3_Pin GPIO_PIN_3
 #define LD3_GPIO_Port GPIOB
+#define P1_Pin GPIO_PIN_4
+#define P1_GPIO_Port GPIOB
+#define P1_EXTI_IRQn EXTI4_IRQn
+#define P2_Pin GPIO_PIN_5
+#define P2_GPIO_Port GPIOB
+#define P2_EXTI_IRQn EXTI9_5_IRQn
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
