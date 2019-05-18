@@ -52,6 +52,7 @@
 /* USER CODE BEGIN Includes */
 #include <string.h>
 #include "HD44780.h"
+#include "menu.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -74,9 +75,6 @@
 /* USER CODE BEGIN PV */
 uint32_t adc[4];
 double onePointADC = 3.3/4095;
-uint8_t enableExti = 1;
-uint8_t choseProgram = 0;
-uint8_t aceptProgram = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -88,39 +86,22 @@ void SystemClock_Config(void);
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
-	if(enableExti == 1){
-		enableExti = 0;
+	if(extiButtonIsEnable()){
+		disableExtiButton();
 		if(GPIO_Pin == P1_Pin){
-			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-			if (aceptProgram == 1){
-				aceptProgram = 0;
-			}
-			else{
-				if (choseProgram > 0)
-				choseProgram--;
-			}
-
+			leftButtonHandle();
 		}
 		else if(GPIO_Pin == P3_Pin){
-			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-			if(aceptProgram != 1)
-				choseProgram++;
+			rightButtonHandle();
 		}
 		else if(GPIO_Pin == P2_Pin){
-			HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-			if(choseProgram != 0)
-				aceptProgram = 1;
+			okButtonHandle();
 		}
 	}
 }
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
-	static uint16_t a = 0;
-	if(htim->Instance == TIM7 || enableExti == 0){
-		a++;
-		if(a == 750){
-			a = 0;
-			enableExti = 1;
-		}
+	if(htim->Instance == TIM7){
+		enableExtiButtonAfterTime(MS_TO_ENABLE_EXTI);
 	}
 }
 
@@ -188,6 +169,7 @@ int main(void)
   MX_TIM7_Init();
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
+  menuInit();
   LCD_Initalize();
   LCD_GoTo(0, 0);
   HAL_ADC_Start_DMA(&hadc1, adc, 4);
@@ -198,26 +180,26 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if(choseProgram == 0){
-		  if (prevProgram != choseProgram){
+	  if(getCurrentChosenProgram() == startMenu){
+		  if (prevProgram != getCurrentChosenProgram()){
 			  LCD_Clear();
 			  LCD_GoTo(0, 0);
 			  LCD_WriteText("Wybierz program");
 			  LCD_GoTo(1, 0);
 			  LCD_WriteText("<--  !OK!  -->");
-			  prevProgram = choseProgram;
+			  prevProgram = getCurrentChosenProgram();
 		  }
 	  }
-	  else if(choseProgram == 1){
-		  if (prevProgram != choseProgram){
+	  else if(getCurrentChosenProgram() == ADCMenu){
+		  if (prevProgram != getCurrentChosenProgram()){
 			  LCD_Clear();
 			  LCD_GoTo(0, 0);
 			  LCD_WriteText("Pomiar ADC");
 			  LCD_GoTo(1, 0);
 			  LCD_WriteText("<--   OK   -->");
-			  prevProgram = choseProgram;
+			  prevProgram = getCurrentChosenProgram();
 		  }
-		  if(aceptProgram){
+		  if(someProgramIsActive()){
 			  prevProgram = 0xFF;
 			  LCD_Clear();
 			  LCD_GoTo(0, 0);
@@ -228,7 +210,7 @@ int main(void)
 			  LCD_WriteText("A3:");
 			  LCD_GoTo(1, 8);
 			  LCD_WriteText("A4:");
-			  while(aceptProgram){
+			  while(someProgramIsActive()){
 				  LCD_GoTo(0, 3);
 				  LCD_double(adc[0]);
 				  LCD_GoTo(0, 11);
@@ -242,26 +224,26 @@ int main(void)
 			  }
 		  }
 	  }
-	  else if(choseProgram == 2){
-		  if (prevProgram != choseProgram){
+	  else if(getCurrentChosenProgram() == generatePWMMenu){
+		  if (prevProgram != getCurrentChosenProgram()){
 			  LCD_Clear();
 			  LCD_GoTo(0, 0);
 			  LCD_WriteText("Generowanie PWM");
 			  LCD_GoTo(1, 0);
 			  LCD_WriteText("<--   OK   -->");
-			  prevProgram = choseProgram;
+			  prevProgram = getCurrentChosenProgram();
 		  }
 	  }
-	  else if(choseProgram == 3){
-		  if (prevProgram != choseProgram){
+	  else if(getCurrentChosenProgram() == relayTestMenu){
+		  if (prevProgram != getCurrentChosenProgram()){
 			  LCD_Clear();
 			  LCD_GoTo(0, 0);
 			  LCD_WriteText("Test wy. przek.");
 			  LCD_GoTo(1, 0);
 			  LCD_WriteText("<--   OK   -->");
-			  prevProgram = choseProgram;
+			  prevProgram = getCurrentChosenProgram();
 		  }
-		  if(aceptProgram){
+		  if(someProgramIsActive()){
 			  prevProgram = 0xFF;
 			  LCD_Clear();
 			  LCD_GoTo(0, 0);
@@ -272,7 +254,7 @@ int main(void)
 			  LCD_WriteText("P3: 0");
 			  LCD_GoTo(1, 6);
 			  LCD_WriteText("P4: 0");
-			  while(aceptProgram){
+			  while(someProgramIsActive()){
 				  LCD_GoTo(0, 4);
 				  LCD_WriteText("1");
 				  HAL_GPIO_WritePin(switch1_GPIO_Port, switch1_Pin, GPIO_PIN_SET);
