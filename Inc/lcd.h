@@ -4,7 +4,9 @@
  extern "C" {
 #endif
 
+#include <stdint.h>
 
+void LCD_double(uint32_t analogRead);
 
 #ifdef __cplusplus
 }
