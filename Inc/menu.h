@@ -15,16 +15,30 @@ typedef enum {
 	relayTestMenu = 0x03,
 
 	menuMax
-} menuName;
+} programName;
+typedef enum {
+	startMenuView,
+
+	ADCMenuView,
+	ADCProgramSet,
+	ADCProgramWork,
+
+	generatePWMMenuView,
+
+	relayTestMenuView,
+	relayTestSet,
+	relayTestWork,
+
+	repeatThisView
+} LCDView;
 
 struct menuStruct{
 	uint8_t enableExtiButton; //1
-	menuName chosenProgram; //0
+	programName chosenProgram; //startMenu
+	LCDView actualLCDView; //startMenuView
 	uint8_t aceptProgram; //0
 	uint16_t msDisableExti; //0
 };
-
-extern struct menuStruct menu;
 
 void menuInit(void);
 uint8_t extiButtonIsEnable(void);
@@ -33,8 +47,10 @@ void disableExtiButton(void);
 void leftButtonHandle(void);
 void okButtonHandle(void);
 void rightButtonHandle(void);
-menuName getCurrentChosenProgram(void);
+programName getCurrentChosenProgram(void);
 void enableExtiButtonAfterTime(uint32_t timeToEnableMS);
+LCDView getActualView(void);
+void setActualView(LCDView view);
 
 
 #ifdef __cplusplus
