@@ -4,7 +4,10 @@
  extern "C" {
 #endif
 
-
+ void startProgram(void);
+ void ADCProgram(void);
+ void generatePWMProgram(void);
+ void relayTestProgram(void);
 
 #ifdef __cplusplus
 }
