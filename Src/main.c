@@ -55,6 +55,7 @@
 #include "menu.h"
 #include "lcd.h"
 #include "menuPrograms.h"
+#include "system.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -104,6 +105,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 	if(htim->Instance == TIM7){
 		enableExtiButtonAfterTime(MS_TO_ENABLE_EXTI);
+		systemTimeHandle();
 	}
 }
 
