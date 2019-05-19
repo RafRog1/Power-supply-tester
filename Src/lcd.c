@@ -2,6 +2,7 @@
 #include "HD44780.h"
 #include "menu.h"
 #include "main.h"
+#include "relayTest.h"
 
 void printCurrentView(void){
 	static LCDView printedView = repeatThisView;
