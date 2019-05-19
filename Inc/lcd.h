@@ -7,6 +7,7 @@
 #include <stdint.h>
 
 void LCD_double(uint32_t analogRead);
+void printCurrentView(void);
 
 #ifdef __cplusplus
 }
