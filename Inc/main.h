@@ -62,7 +62,7 @@ extern "C" {
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
-
+extern uint32_t adc[4];
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/
