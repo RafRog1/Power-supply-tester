@@ -6,9 +6,17 @@ struct menuStruct menu;
 void menuInit(void){
 	menu.enableExtiButton = 1;
 	menu.chosenProgram = startMenu;
+	menu.actualLCDView = startMenuView;
 	menu.aceptProgram = 0;
 	menu.msDisableExti = 0;
 
+}
+
+LCDView getActualView(void){
+	return menu.actualLCDView;
+}
+void setActualView(LCDView view){
+	menu.actualLCDView = view;
 }
 
 uint8_t extiButtonIsEnable(void){
@@ -44,7 +52,7 @@ static void activateProgram(void){
 	menu.aceptProgram = 1;
 }
 
-menuName getCurrentChosenProgram(void){
+programName getCurrentChosenProgram(void){
 	return menu.chosenProgram;
 }
 static void increaseChosenProgram(void){
@@ -66,11 +74,13 @@ void leftButtonHandle(void){
 }
 void rightButtonHandle(void){
 	HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-	if(!someProgramIsActive())
+	if(!someProgramIsActive()){
 		increaseChosenProgram();
+	}
 }
 void okButtonHandle(void){
 	HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-	if(getCurrentChosenProgram() != startMenu)
+	if(getCurrentChosenProgram() != startMenu){
 		activateProgram();
+	}
 }
