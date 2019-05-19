@@ -5,7 +5,7 @@
 
 static uint8_t viewChange = 0;
 
-uint8_t viewChanged(void){
+uint8_t viewIsChanged(void){
 	if(viewChange){
 		viewChange = 0;
 		return 1;
