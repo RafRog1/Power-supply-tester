@@ -6,7 +6,7 @@
 
 #include <stdint.h>
 
-#define MS_TO_ENABLE_EXTI 750
+#define MS_TO_ENABLE_EXTI 500
 
 typedef enum {
 	startMenu = 0x00,
