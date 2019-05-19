@@ -4,7 +4,8 @@
 #include "main.h"
 #include "i2c.h"
 
-static uint8_t byte = 0;
+//static uint8_t byte = 0;
+static uint8_t byte = 8;
 
 #define I2C_Pointer &hi2c1
 #define I2C_adress (0x27 << 1)
