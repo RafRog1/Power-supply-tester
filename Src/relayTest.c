@@ -86,6 +86,8 @@ char* checkRelayStatus(uint8_t relayNumber){
 			return (char*)off;
 		break;
 	}
+
+	return 0;
 }
 
 void relayTestLoop(void){
