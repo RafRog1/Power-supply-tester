@@ -118,7 +118,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim){
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	uint8_t prevProgram = 0xFF;
+
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/
@@ -159,112 +159,19 @@ int main(void)
   while (1)
   {
 	  if(getCurrentChosenProgram() == startMenu){
-		  if (prevProgram != getCurrentChosenProgram()){
-			  LCD_Clear();
-			  LCD_GoTo(0, 0);
-			  LCD_WriteText("Wybierz program");
-			  LCD_GoTo(1, 0);
-			  LCD_WriteText("<--  !OK!  -->");
-			  prevProgram = getCurrentChosenProgram();
-		  }
+		  startProgram();
 	  }
 	  else if(getCurrentChosenProgram() == ADCMenu){
-		  if (prevProgram != getCurrentChosenProgram()){
-			  LCD_Clear();
-			  LCD_GoTo(0, 0);
-			  LCD_WriteText("Pomiar ADC");
-			  LCD_GoTo(1, 0);
-			  LCD_WriteText("<--   OK   -->");
-			  prevProgram = getCurrentChosenProgram();
-		  }
-		  if(someProgramIsActive()){
-			  prevProgram = 0xFF;
-			  LCD_Clear();
-			  LCD_GoTo(0, 0);
-			  LCD_WriteText("A1:");
-			  LCD_GoTo(0, 8);
-			  LCD_WriteText("A2:");
-			  LCD_GoTo(1, 0);
-			  LCD_WriteText("A3:");
-			  LCD_GoTo(1, 8);
-			  LCD_WriteText("A4:");
-			  while(someProgramIsActive()){
-				  LCD_GoTo(0, 3);
-				  LCD_double(adc[0]);
-				  LCD_GoTo(0, 11);
-				  LCD_double(adc[1]);
-				  LCD_GoTo(1, 3);
-				  LCD_double(adc[2]);
-				  LCD_GoTo(1, 11);
-				  LCD_double(adc[3]);
-				  HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
-				  HAL_Delay(100);
-			  }
-		  }
+		  ADCProgram();
 	  }
 	  else if(getCurrentChosenProgram() == generatePWMMenu){
-		  if (prevProgram != getCurrentChosenProgram()){
-			  LCD_Clear();
-			  LCD_GoTo(0, 0);
-			  LCD_WriteText("Generowanie PWM");
-			  LCD_GoTo(1, 0);
-			  LCD_WriteText("<--   OK   -->");
-			  prevProgram = getCurrentChosenProgram();
-		  }
+		  generatePWMProgram();
 	  }
 	  else if(getCurrentChosenProgram() == relayTestMenu){
-		  if (prevProgram != getCurrentChosenProgram()){
-			  LCD_Clear();
-			  LCD_GoTo(0, 0);
-			  LCD_WriteText("Test wy. przek.");
-			  LCD_GoTo(1, 0);
-			  LCD_WriteText("<--   OK   -->");
-			  prevProgram = getCurrentChosenProgram();
-		  }
-		  if(someProgramIsActive()){
-			  prevProgram = 0xFF;
-			  LCD_Clear();
-			  LCD_GoTo(0, 0);
-			  LCD_WriteText("P1: 0");
-			  LCD_GoTo(0, 6);
-			  LCD_WriteText("P2: 0");
-			  LCD_GoTo(1, 0);
-			  LCD_WriteText("P3: 0");
-			  LCD_GoTo(1, 6);
-			  LCD_WriteText("P4: 0");
-			  while(someProgramIsActive()){
-				  LCD_GoTo(0, 4);
-				  LCD_WriteText("1");
-				  HAL_GPIO_WritePin(switch1_GPIO_Port, switch1_Pin, GPIO_PIN_SET);
-				  HAL_Delay(1000);
-				  LCD_GoTo(0, 4);
-				  LCD_WriteText("0");
-				  HAL_GPIO_WritePin(switch1_GPIO_Port, switch1_Pin, GPIO_PIN_RESET);
-				  LCD_GoTo(0, 10);
-				  LCD_WriteText("1");
-				  HAL_GPIO_WritePin(switch2_GPIO_Port, switch2_Pin, GPIO_PIN_SET);
-				  HAL_Delay(1000);
-				  LCD_GoTo(0, 10);
-				  LCD_WriteText("0");
-				  HAL_GPIO_WritePin(switch2_GPIO_Port, switch2_Pin, GPIO_PIN_RESET);
-				  LCD_GoTo(1, 4);
-				  LCD_WriteText("1");
-				  HAL_GPIO_WritePin(switch3_GPIO_Port, switch3_Pin, GPIO_PIN_SET);
-				  HAL_Delay(1000);
-				  LCD_GoTo(1, 4);
-				  LCD_WriteText("0");
-				  HAL_GPIO_WritePin(switch3_GPIO_Port, switch3_Pin, GPIO_PIN_RESET);
-				  LCD_GoTo(1, 10);
-				  LCD_WriteText("1");
-				  HAL_GPIO_WritePin(switch4_GPIO_Port, switch4_Pin, GPIO_PIN_SET);
-				  HAL_Delay(1000);
-				  LCD_GoTo(1, 10);
-				  LCD_WriteText("0");
-				  HAL_GPIO_WritePin(switch4_GPIO_Port, switch4_Pin, GPIO_PIN_RESET);
-				  HAL_Delay(500);
-			  }
-		  }
+		  relayTestProgram();
 	  }
+
+	  printCurrentView();
 	  HAL_Delay(1);
 
     /* USER CODE END WHILE */
