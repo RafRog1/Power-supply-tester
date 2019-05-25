@@ -62,7 +62,7 @@ extern "C" {
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
-extern uint32_t adc[4];
+extern uint32_t adc[5];
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/
@@ -82,8 +82,8 @@ void Error_Handler(void);
 #define MCO_GPIO_Port GPIOA
 #define VCP_TX_Pin GPIO_PIN_2
 #define VCP_TX_GPIO_Port GPIOA
-#define switch1_Pin GPIO_PIN_0
-#define switch1_GPIO_Port GPIOB
+#define TSensor_Pin GPIO_PIN_0
+#define TSensor_GPIO_Port GPIOB
 #define switch2_Pin GPIO_PIN_1
 #define switch2_GPIO_Port GPIOB
 #define switch3_Pin GPIO_PIN_10
@@ -107,6 +107,8 @@ void Error_Handler(void);
 #define P2_Pin GPIO_PIN_5
 #define P2_GPIO_Port GPIOB
 #define P2_EXTI_IRQn EXTI9_5_IRQn
+#define switch1_Pin GPIO_PIN_3
+#define switch1_GPIO_Port GPIOH
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

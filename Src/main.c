@@ -76,7 +76,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint32_t adc[4];
+uint32_t adc[5];
 double onePointADC = 3.3/4095;
 /* USER CODE END PV */
 
@@ -150,7 +150,7 @@ int main(void)
   menuInit();
   LCD_Initalize();
   LCD_GoTo(0, 0);
-  HAL_ADC_Start_DMA(&hadc1, adc, 4);
+  HAL_ADC_Start_DMA(&hadc1, adc, 5);
   HAL_TIM_Base_Start_IT(&htim7);
   /* USER CODE END 2 */
 
