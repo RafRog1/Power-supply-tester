@@ -115,6 +115,8 @@ void LCD_double(uint32_t analogRead){
 	if(x > 1){
 		p = x;
 		LCD_WriteData(p + '0');
+	} else {
+		LCD_WriteData('0');
 	}
 
 	p = x * 10;
@@ -132,5 +134,7 @@ void LCD_double(uint32_t analogRead){
 	if (p%10 > 0){
 		p = p%10;
 		LCD_WriteData(p + '0');
+	} else {
+		LCD_WriteData('0');
 	}
 }
