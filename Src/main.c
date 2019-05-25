@@ -158,17 +158,21 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if(getCurrentChosenProgram() == startMenu){
+	  switch(getCurrentChosenProgram()){
+	  case startMenu:
 		  startProgram();
-	  }
-	  else if(getCurrentChosenProgram() == ADCMenu){
+		  break;
+	  case ADCMenu:
 		  ADCProgram();
-	  }
-	  else if(getCurrentChosenProgram() == generatePWMMenu){
+		  break;
+	  case generatePWMMenu:
 		  generatePWMProgram();
-	  }
-	  else if(getCurrentChosenProgram() == relayTestMenu){
+		  break;
+	  case relayTestMenu:
 		  relayTestProgram();
+		  break;
+	  default:
+		  break;
 	  }
 
 	  printCurrentView();
