@@ -5,7 +5,7 @@
 
 static uint8_t viewChange = 0;
 
-uint8_t viewIsChanged(void){
+uint8_t relayTestViewIsChanged(void){
 	if(viewChange){
 		viewChange = 0;
 		return 1;

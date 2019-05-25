@@ -84,7 +84,7 @@ void printCurrentView(void){
 			printedView = relayTestSet;
 			break;
 		case relayTestWork:
-			if(viewIsChanged()){
+			if(relayTestViewIsChanged()){
 				LCD_GoTo(0, 4);
 				LCD_WriteText(checkRelayStatus(1));
 				LCD_GoTo(0, 10);

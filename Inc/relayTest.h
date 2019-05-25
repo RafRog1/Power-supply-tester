@@ -9,7 +9,7 @@
 void relayTestProgramDeactivate(void);
 void relayTestLoop(void);
 char* checkRelayStatus(uint8_t relayNumber);
-uint8_t viewIsChanged(void);
+uint8_t relayTestViewIsChanged(void);
 
 
 #ifdef __cplusplus
