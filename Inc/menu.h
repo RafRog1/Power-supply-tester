@@ -10,6 +10,7 @@
 
 typedef enum {
 	startMenu = 0x00,
+	ServisMenu,
 	ADCMenu,
 	generatePWMMenu,
 	relayTestMenu,
@@ -29,6 +30,8 @@ typedef enum {
 	relayTestMenuView,
 	relayTestSet,
 	relayTestWork,
+
+	servisMenuView,
 
 	repeatThisView
 } LCDView;

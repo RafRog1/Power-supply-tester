@@ -97,6 +97,16 @@ void printCurrentView(void){
 
 			printedView = repeatThisView;
 			break;
+		case servisMenuView:
+			LCD_Clear();
+			LCD_GoTo(0, 0);
+			LCD_WriteText("Serwis");
+			LCD_GoTo(0, 1);
+			LCD_WriteText("RKorekta:");
+			LCD_GoTo(0, 10);
+
+			printedView = servisMenuView;
+			break;
 		default:
 			LCD_Clear();
 			LCD_GoTo(0, 0);
