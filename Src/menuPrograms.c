@@ -42,3 +42,23 @@ void relayTestProgram(void){
 		relayTestProgramDeactivate();
 	}
 }
+
+void servisProgram(void){
+	uint8_t numVisible = 1;
+	setActualView(servisMenuView);
+	if(someProgramIsActive()){
+		while(someProgramIsActive()){
+			if(numVisible){
+				setActualView(servisNumVisible);
+				printCurrentView();
+				numVisible = 0;
+				HAL_Delay(500);
+			} else {
+				setActualView(servisNumNotVisible);
+				printCurrentView();
+				numVisible = 1;
+				HAL_Delay(250);
+			}
+		}
+	}
+}

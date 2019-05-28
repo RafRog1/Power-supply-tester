@@ -8,6 +8,7 @@
  void ADCProgram(void);
  void generatePWMProgram(void);
  void relayTestProgram(void);
+ void servisProgram(void);
 
 #ifdef __cplusplus
 }
