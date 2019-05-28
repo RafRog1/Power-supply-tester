@@ -47,7 +47,6 @@ struct menuStruct{
 void menuInit(void);
 uint8_t extiButtonIsEnable(void);
 uint8_t someProgramIsActive(void);
-void disableExtiButton(void);
 void leftButtonHandle(void);
 void okButtonHandle(void);
 void rightButtonHandle(void);

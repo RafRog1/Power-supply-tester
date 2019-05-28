@@ -26,7 +26,7 @@ uint8_t extiButtonIsEnable(void){
 		return 0;
 	}
 }
-void disableExtiButton(void){
+static void disableExtiButton(void){
 	menu.enableExtiButton = 0;
 }
 static void enableExtiButton(void){
@@ -66,6 +66,7 @@ static void decreaseChosenProgram(void){
 
 void leftButtonHandle(void){
 	HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+	disableExtiButton();
 	if (someProgramIsActive()){
 		deactivateProgram();
 	} else{
@@ -74,12 +75,14 @@ void leftButtonHandle(void){
 }
 void rightButtonHandle(void){
 	HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+	disableExtiButton();
 	if(!someProgramIsActive()){
 		increaseChosenProgram();
 	}
 }
 void okButtonHandle(void){
 	HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
+	disableExtiButton();
 	if(getCurrentChosenProgram() != startMenu){
 		activateProgram();
 	}

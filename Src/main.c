@@ -90,7 +90,6 @@ void SystemClock_Config(void);
 /* USER CODE BEGIN 0 */
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin){
 	if(extiButtonIsEnable()){
-		disableExtiButton();
 		if(GPIO_Pin == P1_Pin){
 			leftButtonHandle();
 		}
