@@ -3,6 +3,7 @@
 #include "menu.h"
 #include "main.h"
 #include "relayTest.h"
+#include "supplyTester.h"
 
 void printCurrentView(void){
 	static LCDView printedView = repeatThisView;
@@ -104,13 +105,13 @@ void printCurrentView(void){
 			LCD_GoTo(1, 0);
 			LCD_WriteText("RKorekta:");
 			LCD_GoTo(1, 10);
-			LCD_WriteText("1.0"); //test
+			LCD_WriteText(getCorrectionResistanceString());
 
 			printedView = servisMenuView;
 			break;
 		case servisNumVisible:
 			LCD_GoTo(1, 10);
-			LCD_WriteText("1.0"); //test
+			LCD_WriteText(getCorrectionResistanceString());
 
 			printedView = servisNumVisible;
 			break;
