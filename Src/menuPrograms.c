@@ -52,12 +52,12 @@ void servisProgram(void){
 				setActualView(servisNumVisible);
 				printCurrentView();
 				numVisible = 0;
-				HAL_Delay(500);
+				HAL_Delay(400);
 			} else {
 				setActualView(servisNumNotVisible);
 				printCurrentView();
 				numVisible = 1;
-				HAL_Delay(250);
+				HAL_Delay(200);
 			}
 		}
 	}
