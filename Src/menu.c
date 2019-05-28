@@ -1,5 +1,8 @@
 #include "menu.h"
+#include "main.h"
 #include "gpio.h"
+#include "supplyTester.h"
+#include "system.h"
 
 struct menuStruct menu;
 
@@ -33,7 +36,22 @@ void enableExtiButtonAfterTime(uint32_t timeToEnableMS){
 		menu.msDisableExti++;
 		if(menu.msDisableExti >= timeToEnableMS){
 			menu.msDisableExti = 0;
-			enableExtiButton();
+			if(HAL_GPIO_ReadPin(P1_GPIO_Port, P1_Pin) == GPIO_PIN_RESET){
+				leftButtonHandle();
+				enableFastButton();
+				disableExtiButton();
+			} else if(HAL_GPIO_ReadPin(P2_GPIO_Port, P2_Pin) == GPIO_PIN_RESET){
+				okButtonHandle();
+				enableFastButton();
+				disableExtiButton();
+			} else if(HAL_GPIO_ReadPin(P3_GPIO_Port, P3_Pin) == GPIO_PIN_RESET){
+				rightButtonHandle();
+				enableFastButton();
+				disableExtiButton();
+			} else{
+				disableFastButton();
+				enableExtiButton();
+			}
 		}
 	}
 }
