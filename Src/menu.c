@@ -20,11 +20,7 @@ void setActualView(LCDView view){
 }
 
 uint8_t extiButtonIsEnable(void){
-	if(menu.enableExtiButton > 0){
-		return 1;
-	} else{
-		return 0;
-	}
+	return (menu.enableExtiButton > 0) ? 1 : 0;
 }
 static void disableExtiButton(void){
 	menu.enableExtiButton = 0;
