@@ -92,6 +92,8 @@ void rightButtonHandle(void){
 	disableExtiButton();
 	if(!someProgramIsActive()){
 		increaseChosenProgram();
+	} else if(getCurrentChosenProgram() == serviceMenu){
+		increaseCorrectionResistance();
 	}
 }
 void okButtonHandle(void){
