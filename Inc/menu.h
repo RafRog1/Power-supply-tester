@@ -10,7 +10,7 @@
 
 typedef enum {
 	startMenu = 0x00,
-	ServisMenu,
+	servisMenu,
 	ADCMenu,
 	generatePWMMenu,
 	relayTestMenu,
