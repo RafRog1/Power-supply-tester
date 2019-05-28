@@ -101,11 +101,24 @@ void printCurrentView(void){
 			LCD_Clear();
 			LCD_GoTo(0, 0);
 			LCD_WriteText("Serwis");
-			LCD_GoTo(0, 1);
+			LCD_GoTo(1, 0);
 			LCD_WriteText("RKorekta:");
-			LCD_GoTo(0, 10);
+			LCD_GoTo(1, 10);
+			LCD_WriteText("1.0"); //test
 
 			printedView = servisMenuView;
+			break;
+		case servisNumVisible:
+			LCD_GoTo(1, 10);
+			LCD_WriteText("1.0"); //test
+
+			printedView = servisNumVisible;
+			break;
+		case servisNumNotVisible:
+			LCD_GoTo(1, 10);
+			LCD_WriteText("   ");
+
+			printedView = servisNumNotVisible;
 			break;
 		default:
 			LCD_Clear();

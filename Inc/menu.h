@@ -32,6 +32,8 @@ typedef enum {
 	relayTestWork,
 
 	servisMenuView,
+	servisNumVisible,
+	servisNumNotVisible,
 
 	repeatThisView
 } LCDView;
