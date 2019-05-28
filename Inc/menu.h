@@ -10,14 +10,15 @@
 
 typedef enum {
 	startMenu = 0x00,
-	ADCMenu = 0x01,
-	generatePWMMenu = 0x02,
-	relayTestMenu = 0x03,
+	ADCMenu,
+	generatePWMMenu,
+	relayTestMenu,
+
 
 	menuMax
 } programName;
 typedef enum {
-	startMenuView,
+	startMenuView = 0x00,
 
 	ADCMenuView,
 	ADCProgramSet,
