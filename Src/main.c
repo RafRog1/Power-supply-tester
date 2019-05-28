@@ -56,6 +56,7 @@
 #include "lcd.h"
 #include "menuPrograms.h"
 #include "system.h"
+#include "supplyTester.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -146,6 +147,7 @@ int main(void)
   MX_TIM7_Init();
   MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
+  supplyTesterInitStruct();
   menuInit();
   LCD_Initalize();
   LCD_GoTo(0, 0);
