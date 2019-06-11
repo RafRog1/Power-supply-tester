@@ -166,6 +166,12 @@ void printCurrentView(void){
 
 			printedView = workingProgramView;
 			break;
+		case workingProgramBlinkView:
+			LCD_GoTo(0, 0);
+			LCD_WriteText("        ");
+
+			printedView = workingProgramBlinkView;
+			break;
 		default:
 			LCD_Clear();
 			LCD_GoTo(0, 0);
