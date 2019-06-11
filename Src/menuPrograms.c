@@ -6,6 +6,7 @@
 #include "lcd.h"
 #include "relayTest.h"
 #include "system.h"
+#include "supplyTester.h"
 
 void startProgram(void){
 	setActualView(startMenuView);
@@ -64,6 +65,16 @@ void servisProgram(void){
 	}
 }
 
+static void blinkingView(void){
+	static uint32_t timeToBlinkLCD = 0;
+	if(timeToBlinkLCD + 500 < getSystemMSTime()){
+		timeToBlinkLCD = getSystemMSTime();
+		if(getActualView() == workingProgramBlinkView)
+			setActualView(workingProgramView);
+		else
+			setActualView(workingProgramBlinkView);
+	}
+}
 void workProgram(void){
 	static uint8_t shouldPrintInfo = 1;
 	if(shouldPrintInfo)
@@ -75,7 +86,11 @@ void workProgram(void){
 			shouldPrintInfo = 0;
 		}
 		else if(getHelpTime() + timeInMsToPrintInfo < getSystemMSTime()){
-			setActualView(workingProgramView);
+			if(setRelayAndActualWorkIsEqual())
+				setActualView(workingProgramView);
+			else{
+				blinkingView();
+			}
 
 		}
 	} else {
