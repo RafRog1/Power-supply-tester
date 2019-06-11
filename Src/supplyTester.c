@@ -32,7 +32,7 @@ void increaseCorrectionResistance(void){
 		disableFastButton();
 	}
 }
-char* getCorrectionResistanceString(void){
+char *getCorrectionResistanceString(void){
 	static char correctionResistanceString[5];
 	uint8_t num1 = supplyTester.correctionResistance;
 	uint8_t num2 = (supplyTester.correctionResistance - num1) * 10;
@@ -40,7 +40,7 @@ char* getCorrectionResistanceString(void){
 	return correctionResistanceString;
 }
 
-static void actualizeOnResistance(){
+static void actualizeOnResistance(void){
 	if(supplyTester.relayWork == none)
 		supplyTester.onResistance = 0;
 	else if(supplyTester.relayWork == relay1)
