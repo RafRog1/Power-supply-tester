@@ -38,3 +38,16 @@ char* getCorrectionResistanceString(void){
 	sprintf(correctionResistanceString, "%d.%d", num1, num2);
 	return correctionResistanceString;
 }
+
+static void actualizeOnResistance(){
+	if(supplyTester.relayWork == none)
+		supplyTester.onResistance = 0;
+	else if(supplyTester.relayWork == relay1)
+		supplyTester.onResistance = RELAY_1;
+	else if(supplyTester.relayWork == relay1and2)
+		supplyTester.onResistance = RELAY_1_2;
+	else if(supplyTester.relayWork == relay1and2and3)
+		supplyTester.onResistance = RELAY_1_2_3;
+	else if(supplyTester.relayWork == relay1and2and3and4)
+		supplyTester.onResistance = RELAY_1_2_3_4;
+}
