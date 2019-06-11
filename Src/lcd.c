@@ -130,6 +130,15 @@ void printCurrentView(void){
 
 			printedView = workMenuView;
 			break;
+		case workProgramInfo:
+			LCD_Clear();
+			LCD_GoTo(0, 0);
+			LCD_WriteText("P. P. zwieksza");
+			LCD_GoTo(1, 0);
+			LCD_WriteText("Sr.P. zatwierdza");
+
+			printedView = workProgramInfo;
+			break;
 		default:
 			LCD_Clear();
 			LCD_GoTo(0, 0);

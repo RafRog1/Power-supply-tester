@@ -5,6 +5,7 @@
 #include "gpio.h"
 #include "lcd.h"
 #include "relayTest.h"
+#include "system.h"
 
 void startProgram(void){
 	setActualView(startMenuView);
@@ -64,5 +65,19 @@ void servisProgram(void){
 }
 
 void workProgram(void){
+	static uint8_t shouldPrintInfo = 1;
 	setActualView(workMenuView);
+	if(someProgramIsActive()){
+		if(shouldPrintInfo){
+			setActualView(workProgramInfo);
+			setHelpTime(getSystemMSTime());
+			shouldPrintInfo = 0;
+		}
+		else if(getHelpTime() + timeInMsToPrintInfo + 100 < getSystemMSTime())
+			shouldPrintInfo = 1;
+		else
+			while(someProgramIsActive()){
+
+			}
+	}
 }

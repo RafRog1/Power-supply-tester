@@ -4,6 +4,8 @@
  extern "C" {
 #endif
 
+#define timeInMsToPrintInfo 1100
+
  void startProgram(void);
  void ADCProgram(void);
  void generatePWMProgram(void);

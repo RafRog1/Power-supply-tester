@@ -37,6 +37,7 @@ typedef enum {
 	servisNumNotVisible,
 
 	workMenuView,
+	workProgramInfo,
 
 	repeatThisView
 } LCDView;
