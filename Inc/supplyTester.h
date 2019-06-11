@@ -23,6 +23,10 @@ enum actualRelayWork{
 
 struct supplyTester_Struct{
 	float correctionResistance;
+	float onResistance;
+	float actualResistance;
+
+	enum actualRelayWork relayWork;
 };
 
 void supplyTesterInitStruct(void);

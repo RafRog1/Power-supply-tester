@@ -7,6 +7,9 @@ struct supplyTester_Struct supplyTester;
 
 void supplyTesterInitStruct(void){
 	supplyTester.correctionResistance = DEFAULT_CORRECTION_RESISTANCE;
+	supplyTester.onResistance = 0;
+	supplyTester.actualResistance = 0;
+	supplyTester.relayWork = none;
 }
 
 void increaseCorrectionResistance(void){
