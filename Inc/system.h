@@ -12,6 +12,8 @@
  void enableFastButton(void);
  void disableFastButton(void);
  uint8_t fastButtonIsEnable(void);
+ void setHelpTime(uint32_t timeToSet);
+ uint32_t getHelpTime(void);
 
 
 #ifdef __cplusplus
