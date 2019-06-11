@@ -82,7 +82,10 @@ void leftButtonHandle(void){
 	HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 	disableExtiButton();
 	if (someProgramIsActive()){
-		deactivateProgram();
+		if(getCurrentChosenProgram() == workMenu && !setRelayAndActualWorkIsEqual())
+			resetSetRelay();
+		else
+			deactivateProgram();
 	} else{
 		decreaseChosenProgram();
 	}
@@ -94,6 +97,8 @@ void rightButtonHandle(void){
 		increaseChosenProgram();
 	} else if(getCurrentChosenProgram() == serviceMenu){
 		increaseCorrectionResistance();
+	} else if(getCurrentChosenProgram() == workMenu){
+		increaseRelayToSet();
 	}
 }
 void okButtonHandle(void){
@@ -101,5 +106,7 @@ void okButtonHandle(void){
 	disableExtiButton();
 	if(getCurrentChosenProgram() != startMenu){
 		activateProgram();
+		if(getCurrentChosenProgram() == workMenu && someProgramIsActive())
+			acceptSetRelay();
 	}
 }
