@@ -27,6 +27,7 @@ struct supplyTester_Struct{
 	float actualResistance;
 
 	enum actualRelayWork relayWork;
+	enum actualRelayWork relayToSet;
 };
 
 void supplyTesterInitStruct(void);

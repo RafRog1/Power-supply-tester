@@ -10,6 +10,7 @@ void supplyTesterInitStruct(void){
 	supplyTester.onResistance = 0;
 	supplyTester.actualResistance = 0;
 	supplyTester.relayWork = none;
+	supplyTester.relayToSet = none;
 }
 
 void increaseCorrectionResistance(void){
