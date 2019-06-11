@@ -19,6 +19,8 @@ enum actualRelayWork{
 	relay1and2, //26,7ohm
 	relay1and2and3, //11,4ohm
 	relay1and2and3and4, //5,3ohm
+
+	relayOut
 };
 
 struct supplyTester_Struct{
