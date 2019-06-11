@@ -14,8 +14,10 @@ void printCurrentView(void){
 			LCD_Clear();
 			LCD_GoTo(0, 0);
 			LCD_WriteText("Wybierz program");
-			LCD_GoTo(1, 0);
-			LCD_WriteText("<--  !OK!  -->");
+			LCD_GoTo(1, 7);
+			LCD_WriteText("OK");
+			LCD_GoTo(1, 13);
+			LCD_WriteText("-->");
 
 			printedView = startMenuView;
 			break;
@@ -24,7 +26,11 @@ void printCurrentView(void){
 			LCD_GoTo(0, 0);
 			LCD_WriteText("Pomiar ADC");
 			LCD_GoTo(1, 0);
-			LCD_WriteText("<--   OK   -->");
+			LCD_WriteText("<--");
+			LCD_GoTo(1, 7);
+			LCD_WriteText("OK");
+			LCD_GoTo(1, 13);
+			LCD_WriteText("-->");
 
 			printedView = ADCMenuView;
 			break;
@@ -58,7 +64,11 @@ void printCurrentView(void){
 			LCD_GoTo(0, 0);
 			LCD_WriteText("Generowanie PWM");
 			LCD_GoTo(1, 0);
-			LCD_WriteText("<--   OK   -->");
+			LCD_WriteText("<--");
+			LCD_GoTo(1, 7);
+			LCD_WriteText("OK");
+			//LCD_GoTo(1, 13);
+			//LCD_WriteText("-->");
 
 			printedView = generatePWMMenuView;
 			break;
@@ -67,7 +77,11 @@ void printCurrentView(void){
 			LCD_GoTo(0, 0);
 			LCD_WriteText("Test wy. przek.");
 			LCD_GoTo(1, 0);
-			LCD_WriteText("<--   OK   -->");
+			LCD_WriteText("<--");
+			LCD_GoTo(1, 7);
+			LCD_WriteText("OK");
+			LCD_GoTo(1, 13);
+			LCD_WriteText("-->");
 
 			printedView = relayTestMenuView;
 			break;
@@ -126,7 +140,11 @@ void printCurrentView(void){
 			LCD_GoTo(0, 0);
 			LCD_WriteText(" Test zasilacza");
 			LCD_GoTo(1, 0);
-			LCD_WriteText("<--   OK   -->");
+			LCD_WriteText("<--");
+			LCD_GoTo(1, 7);
+			LCD_WriteText("OK");
+			LCD_GoTo(1, 13);
+			LCD_WriteText("-->");
 
 			printedView = workMenuView;
 			break;
