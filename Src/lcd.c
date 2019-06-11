@@ -121,6 +121,15 @@ void printCurrentView(void){
 
 			printedView = servisNumNotVisible;
 			break;
+		case workMenuView:
+			LCD_Clear();
+			LCD_GoTo(0, 0);
+			LCD_WriteText(" Testowanie");
+			LCD_GoTo(1, 0);
+			LCD_WriteText("  zasilacza");
+
+			printedView = workMenuView;
+			break;
 		default:
 			LCD_Clear();
 			LCD_GoTo(0, 0);

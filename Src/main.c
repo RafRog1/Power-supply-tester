@@ -163,6 +163,9 @@ int main(void)
 	  case startMenu:
 		  startProgram();
 		  break;
+	  case workMenu:
+		  workProgram();
+		  break;
 	  case serviceMenu:
 		  servisProgram();
 		  break;

@@ -62,3 +62,7 @@ void servisProgram(void){
 		}
 	}
 }
+
+void workProgram(void){
+	setActualView(workMenuView);
+}

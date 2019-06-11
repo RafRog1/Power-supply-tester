@@ -9,6 +9,7 @@
  void generatePWMProgram(void);
  void relayTestProgram(void);
  void servisProgram(void);
+ void workProgram(void);
 
 #ifdef __cplusplus
 }

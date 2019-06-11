@@ -10,6 +10,7 @@
 
 typedef enum {
 	startMenu = 0x00,
+	workMenu,
 	serviceMenu,
 	ADCMenu,
 	generatePWMMenu,
@@ -34,6 +35,8 @@ typedef enum {
 	servisMenuView,
 	servisNumVisible,
 	servisNumNotVisible,
+
+	workMenuView,
 
 	repeatThisView
 } LCDView;
