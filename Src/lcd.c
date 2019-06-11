@@ -124,9 +124,9 @@ void printCurrentView(void){
 		case workMenuView:
 			LCD_Clear();
 			LCD_GoTo(0, 0);
-			LCD_WriteText(" Testowanie");
+			LCD_WriteText(" Test zasilacza");
 			LCD_GoTo(1, 0);
-			LCD_WriteText("  zasilacza");
+			LCD_WriteText("<--   OK   -->");
 
 			printedView = workMenuView;
 			break;
