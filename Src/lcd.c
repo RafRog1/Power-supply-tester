@@ -157,6 +157,15 @@ void printCurrentView(void){
 
 			printedView = workProgramInfo;
 			break;
+		case workingProgramView:
+			LCD_Clear();
+			LCD_GoTo(0, 0);
+			LCD_WriteText("Przerwa");
+			LCD_GoTo(0, 15);
+			LCD_WriteText("C");
+
+			printedView = workingProgramView;
+			break;
 		default:
 			LCD_Clear();
 			LCD_GoTo(0, 0);

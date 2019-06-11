@@ -38,6 +38,7 @@ typedef enum {
 
 	workMenuView,
 	workProgramInfo,
+	workingProgramView,
 
 	repeatThisView
 } LCDView;
