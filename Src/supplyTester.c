@@ -52,3 +52,44 @@ static void actualizeOnResistance(){
 	else if(supplyTester.relayWork == relay1and2and3and4)
 		supplyTester.onResistance = RELAY_1_2_3_4;
 }
+char *getRelayOn(void){
+	static char relayDescription[10] = {0};
+	uint8_t integer = 0;
+	uint8_t decimal = 0;
+
+	if(supplyTester.relayToSet == none){
+		sprintf(relayDescription, "Przerwa");
+		return relayDescription;
+	} else if(supplyTester.relayToSet == relay1){
+		integer = RELAY_1;
+		decimal = (RELAY_1 - integer) * 10;
+	} else if(supplyTester.relayToSet == relay1and2){
+		integer = RELAY_1_2;
+		decimal = (RELAY_1_2 - integer) * 10;
+	} else if(supplyTester.relayToSet == relay1and2and3){
+		integer = RELAY_1_2_3;
+		decimal = (RELAY_1_2_3 - integer) * 10;
+	} else if(supplyTester.relayToSet == relay1and2and3and4){
+		integer = RELAY_1_2_3_4;
+		decimal = (RELAY_1_2_3_4 - integer) * 10;
+	}
+	sprintf(relayDescription, "%d.%dohm", integer, decimal);
+
+	return relayDescription;
+}
+void increaseRelayToSet(void){
+	supplyTester.relayToSet++;
+	if(supplyTester.relayToSet == relayOut)
+		supplyTester.relayToSet = none;
+}
+void acceptSetRelay(void){
+	supplyTester.relayWork = supplyTester.relayToSet;
+	actualizeOnResistance();
+	supplyTester.actualResistance = supplyTester.onResistance + supplyTester.correctionResistance;
+}
+void resetSetRelay(void){
+	supplyTester.relayToSet = supplyTester.relayWork;
+}
+uint8_t setRelayAndActualWorkIsEqual(void){
+	return (supplyTester.relayToSet == supplyTester.relayWork) ? 1 : 0;
+}

@@ -35,6 +35,11 @@ struct supplyTester_Struct{
 void supplyTesterInitStruct(void);
 void increaseCorrectionResistance(void);
 char* getCorrectionResistanceString(void);
+void increaseRelayToSet(void);
+void acceptSetRelay(void);
+void resetSetRelay(void);
+uint8_t setRelayAndActualWorkIsEqual(void);
+char *getRelayOn(void);
 
 #ifdef __cplusplus
 }
