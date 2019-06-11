@@ -160,7 +160,7 @@ void printCurrentView(void){
 		case workingProgramView:
 			LCD_Clear();
 			LCD_GoTo(0, 0);
-			LCD_WriteText("Przerwa");
+			LCD_WriteText(getRelayOn());
 			LCD_GoTo(0, 15);
 			LCD_WriteText("C");
 
