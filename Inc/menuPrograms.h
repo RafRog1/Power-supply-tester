@@ -4,7 +4,7 @@
  extern "C" {
 #endif
 
-#define timeInMsToPrintInfo 3000
+#define timeInMsToPrintInfo 2000
 
  void startProgram(void);
  void ADCProgram(void);
