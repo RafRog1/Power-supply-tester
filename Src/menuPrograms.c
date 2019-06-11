@@ -66,18 +66,19 @@ void servisProgram(void){
 
 void workProgram(void){
 	static uint8_t shouldPrintInfo = 1;
-	setActualView(workMenuView);
+	if(shouldPrintInfo)
+		setActualView(workMenuView);
 	if(someProgramIsActive()){
 		if(shouldPrintInfo){
 			setActualView(workProgramInfo);
 			setHelpTime(getSystemMSTime());
 			shouldPrintInfo = 0;
 		}
-		else if(getHelpTime() + timeInMsToPrintInfo + 100 < getSystemMSTime())
-			shouldPrintInfo = 1;
-		else
-			while(someProgramIsActive()){
+		else if(getHelpTime() + timeInMsToPrintInfo < getSystemMSTime()){
+			setActualView(workingProgramView);
 
-			}
+		}
+	} else {
+		shouldPrintInfo = 1;
 	}
 }
