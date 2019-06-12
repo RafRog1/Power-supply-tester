@@ -105,8 +105,9 @@ void okButtonHandle(void){
 	HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 	disableExtiButton();
 	if(getCurrentChosenProgram() != startMenu){
-		activateProgram();
 		if(getCurrentChosenProgram() == workMenu && someProgramIsActive())
 			acceptSetRelay();
+		else
+			activateProgram();
 	}
 }
