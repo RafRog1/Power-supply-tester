@@ -4,6 +4,10 @@
 #include "main.h"
 #include "relayTest.h"
 #include "supplyTester.h"
+#include <string.h>
+
+static char relayOn[10] = {0};
+static char temp[10] = {0};
 
 void printCurrentView(void){
 	static LCDView printedView = repeatThisView;
@@ -157,20 +161,42 @@ void printCurrentView(void){
 
 			printedView = workProgramInfo;
 			break;
-		case workingProgramView:
+		case workingProgramFirstView:
 			LCD_Clear();
 			LCD_GoTo(0, 0);
 			LCD_WriteText(getRelayOn());
+			LCD_GoTo(0, 10);
+			LCD_WriteText(getTemperatureSensorString());
 			LCD_GoTo(0, 15);
 			LCD_WriteText("C");
 
-			printedView = workingProgramView;
+			printedView = workingProgramFirstView;
 			break;
-		case workingProgramBlinkView:
+		case workingProgramView:
+			if(!strstr(getRelayOn(), relayOn)){
+				LCD_GoTo(0, 0);
+				LCD_WriteText(getRelayOn());
+			}
+			strcpy(relayOn, getRelayOn());
+			if(!strstr(getTemperatureSensorString(), temp)){
+				LCD_GoTo(0, 10);
+				LCD_WriteText(getTemperatureSensorString());
+			}
+			strcpy(temp, getTemperatureSensorString());
+
+			printedView = repeatThisView;
+			break;
+		case workingProgramBlinkView1:
 			LCD_GoTo(0, 0);
 			LCD_WriteText("        ");
 
-			printedView = workingProgramBlinkView;
+			printedView = workingProgramBlinkView1;
+			break;
+		case workingProgramBlinkView2:
+			LCD_GoTo(0, 0);
+			LCD_WriteText(getRelayOn());
+
+			printedView = workingProgramBlinkView2;
 			break;
 		default:
 			LCD_Clear();

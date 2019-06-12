@@ -69,14 +69,21 @@ static void blinkingView(void){
 	static uint32_t timeToBlinkLCD = 0;
 	if(timeToBlinkLCD + 500 < getSystemMSTime()){
 		timeToBlinkLCD = getSystemMSTime();
-		if(getActualView() == workingProgramBlinkView)
-			setActualView(workingProgramView);
+		if(getActualView() == workingProgramBlinkView2)
+			setActualView(workingProgramBlinkView1);
 		else
-			setActualView(workingProgramBlinkView);
+			setActualView(workingProgramBlinkView2);
 	}
+}
+static void normalView(uint8_t firstPrint){
+	if(firstPrint)
+		setActualView(workingProgramFirstView);
+	else
+		setActualView(workingProgramView);
 }
 void workProgram(void){
 	static uint8_t shouldPrintInfo = 1;
+	static uint8_t firstPrintMenuView = 1;
 	if(shouldPrintInfo)
 		setActualView(workMenuView);
 	if(someProgramIsActive()){
@@ -86,14 +93,17 @@ void workProgram(void){
 			shouldPrintInfo = 0;
 		}
 		else if(getHelpTime() + timeInMsToPrintInfo < getSystemMSTime()){
-			if(setRelayAndActualWorkIsEqual())
-				setActualView(workingProgramView);
-			else{
+			if(setRelayAndActualWorkIsEqual()){
+				normalView(firstPrintMenuView);
+				firstPrintMenuView = 0;
+			} else{
 				blinkingView();
+				firstPrintMenuView = 1;
 			}
 
 		}
 	} else {
 		shouldPrintInfo = 1;
+		firstPrintMenuView = 1;
 	}
 }
