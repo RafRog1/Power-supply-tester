@@ -77,7 +77,6 @@
 
 /* USER CODE BEGIN PV */
 uint32_t adc[5];
-double onePointADC = 3.3/4095;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
