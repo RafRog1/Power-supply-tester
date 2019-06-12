@@ -1,6 +1,8 @@
 #include "supplyTester.h"
 #include "system.h"
 #include "menu.h"
+#include "gpio.h"
+#include "main.h"
 #include <stdio.h>
 
 struct supplyTester_Struct supplyTester;
@@ -92,4 +94,28 @@ void resetSetRelay(void){
 }
 uint8_t setRelayAndActualWorkIsEqual(void){
 	return (supplyTester.relayToSet == supplyTester.relayWork) ? 1 : 0;
+}
+
+char* getTemperatureSensorString(void){
+	static char strTemp[10] = {0};
+	static float beforeTemperature = 1;
+	static uint32_t generateTime = 0;
+	float temperature = (float)(adc[4] * (3.3/40.95));
+
+	if (!(beforeTemperature + 0.5 > temperature && beforeTemperature - 0.5 < temperature) && generateTime + 1000 < getSystemMSTime()){
+		beforeTemperature = temperature;
+		generateTime = getSystemMSTime();
+		uint8_t integer = temperature;
+		uint8_t decimal = (temperature - integer) * 10;
+
+		if(integer < 10){
+			sprintf(strTemp, "  %d.%d", integer, decimal);
+		} else if(integer < 100){
+			sprintf(strTemp, " %d.%d", integer, decimal);
+		} else{
+			sprintf(strTemp, "%d.%d", integer, decimal);
+		}
+	}
+
+	return strTemp;
 }

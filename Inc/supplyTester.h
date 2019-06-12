@@ -40,6 +40,7 @@ void acceptSetRelay(void);
 void resetSetRelay(void);
 uint8_t setRelayAndActualWorkIsEqual(void);
 char *getRelayOn(void);
+char* getTemperatureSensorString(void);
 
 #ifdef __cplusplus
 }
