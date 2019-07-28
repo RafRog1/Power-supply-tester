@@ -8,17 +8,29 @@
 
 #define DEFAULT_CORRECTION_RESISTANCE 1.0
 
-#define RELAY_1 80.0
-#define RELAY_1_2 26.7
-#define RELAY_1_2_3 11.4
-#define RELAY_1_2_3_4 5.3
+#define RESISTOR_1 (10.0)
+#define RESISTOR_2 (20.0)
+#define RESISTOR_3 (40.0)
+#define RESISTOR_4 (80.0)
 
 enum actualRelayWork{
 	none,
-	relay1, //80ohm
-	relay1and2, //26,7ohm
-	relay1and2and3, //11,4ohm
-	relay1and2and3and4, //5,3ohm
+
+	relay1,
+	relay1and2,
+	relay1and3,
+	relay1and4,
+	relay1and2and3,
+	relay1and2and4,
+	relay1and3and4,
+	relay2,
+	relay2and3,
+	relay2and4,
+	relay2and3and4,
+	relay3,
+	relay3and4,
+	relay4,
+	relay1and2and3and4,
 
 	relayOut
 };
