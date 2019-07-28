@@ -284,10 +284,7 @@ char *getCurrentString(void){
 	return currentString;
 }
 void disableRelays(void){
-	HAL_GPIO_WritePin(switch1_GPIO_Port, switch1_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(switch2_GPIO_Port, switch2_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(switch3_GPIO_Port, switch3_Pin, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(switch4_GPIO_Port, switch4_Pin, GPIO_PIN_RESET);
+	setSwitch(0, 0, 0, 0);
 }
 void acceptSetRelay(void){
 	supplyTester.relayWork = supplyTester.relayToSet;
