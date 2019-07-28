@@ -307,6 +307,7 @@ void acceptSetRelay(void){
 }
 void resetSetRelay(void){
 	supplyTester.relayToSet = supplyTester.relayWork;
+	supplyTester.status &= ~onResistanceBlinkMode;
 }
 uint8_t isBlinkMode(void){
 	return (supplyTester.status & onResistanceBlinkMode) ? 1 : 0;
