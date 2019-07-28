@@ -174,18 +174,9 @@ char *getRelayOn(void){
 	if(supplyTester.relayToSet == none){
 		sprintf(relayDescription, "Przerwa");
 		return relayDescription;
-	} else if(supplyTester.relayToSet == relay1){
-		integer = RELAY_1;
-		decimal = (RELAY_1 - integer) * 10;
-	} else if(supplyTester.relayToSet == relay1and2){
-		integer = RELAY_1_2;
-		decimal = (RELAY_1_2 - integer) * 10;
-	} else if(supplyTester.relayToSet == relay1and2and3){
-		integer = RELAY_1_2_3;
-		decimal = (RELAY_1_2_3 - integer) * 10;
-	} else if(supplyTester.relayToSet == relay1and2and3and4){
-		integer = RELAY_1_2_3_4;
-		decimal = (RELAY_1_2_3_4 - integer) * 10;
+	} else{
+		integer = supplyTester.actualResistance;
+		decimal = (supplyTester.actualResistance - integer) * 10;
 	}
 	sprintf(relayDescription, "%d.%dohm", integer, decimal);
 
