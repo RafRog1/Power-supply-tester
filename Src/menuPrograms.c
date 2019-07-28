@@ -98,12 +98,12 @@ void workProgram(void){
 				firstPrintMenuView = 0;
 			} else{
 				blinkingView();
-				firstPrintMenuView = 1;
 			}
 
 		}
 	} else {
 		shouldPrintInfo = 1;
 		firstPrintMenuView = 1;
+		disableRelays();
 	}
 }
