@@ -25,7 +25,7 @@ void increaseCorrectionResistance(void){
 		increase = 0.1;
 
 	if(supplyTester.correctionResistance == 3.0){
-		supplyTester.correctionResistance = 0.1;
+		supplyTester.correctionResistance = 0.0;
 		disableFastButton();
 		return;
 	}
