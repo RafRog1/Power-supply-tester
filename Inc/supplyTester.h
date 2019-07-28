@@ -51,8 +51,11 @@ void increaseRelayToSet(void);
 void acceptSetRelay(void);
 void resetSetRelay(void);
 uint8_t setRelayAndActualWorkIsEqual(void);
+char *getRelayOnBlink(void);
 char *getRelayOn(void);
-char* getTemperatureSensorString(void);
+char *getTemperatureSensorString(void);
+void disableRelays(void);
+char *getCurrentString(void);
 
 #ifdef __cplusplus
 }
