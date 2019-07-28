@@ -82,7 +82,7 @@ void leftButtonHandle(void){
 	HAL_GPIO_TogglePin(LD3_GPIO_Port, LD3_Pin);
 	disableExtiButton();
 	if (someProgramIsActive()){
-		if(getCurrentChosenProgram() == workMenu && !setRelayAndActualWorkIsEqual())
+		if(getCurrentChosenProgram() == workMenu && isBlinkMode())
 			resetSetRelay();
 		else
 			deactivateProgram();

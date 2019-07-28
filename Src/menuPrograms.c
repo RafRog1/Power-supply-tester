@@ -93,7 +93,7 @@ void workProgram(void){
 			shouldPrintInfo = 0;
 		}
 		else if(getHelpTime() + timeInMsToPrintInfo < getSystemMSTime()){
-			if(setRelayAndActualWorkIsEqual()){
+			if(!isBlinkMode()){
 				normalView(firstPrintMenuView);
 				firstPrintMenuView = 0;
 			} else{

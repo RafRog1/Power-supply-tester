@@ -35,6 +35,10 @@ enum actualRelayWork{
 	relayOut
 };
 
+enum supplyTesterStatus{
+	onResistanceBlinkMode = 0x01,
+};
+
 struct supplyTester_Struct{
 	float correctionResistance;
 	float onResistance;
@@ -42,6 +46,8 @@ struct supplyTester_Struct{
 
 	enum actualRelayWork relayWork;
 	enum actualRelayWork relayToSet;
+
+	uint8_t status;
 };
 
 void supplyTesterInitStruct(void);
@@ -50,7 +56,7 @@ char* getCorrectionResistanceString(void);
 void increaseRelayToSet(void);
 void acceptSetRelay(void);
 void resetSetRelay(void);
-uint8_t setRelayAndActualWorkIsEqual(void);
+uint8_t isBlinkMode(void);
 char *getRelayOnBlink(void);
 char *getRelayOn(void);
 char *getTemperatureSensorString(void);

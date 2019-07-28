@@ -13,6 +13,7 @@ void supplyTesterInitStruct(void){
 	supplyTester.actualResistance = 0;
 	supplyTester.relayWork = none;
 	supplyTester.relayToSet = none;
+	supplyTester.status = 0;
 }
 
 void increaseCorrectionResistance(void){
@@ -192,6 +193,7 @@ char *getRelayOn(void){
 }
 void increaseRelayToSet(void){
 	supplyTester.relayToSet++;
+	supplyTester.status |= onResistanceBlinkMode;
 	if(supplyTester.relayToSet == relayOut)
 		supplyTester.relayToSet = none;
 }
@@ -301,12 +303,13 @@ void acceptSetRelay(void){
 	actualizeOnResistance();
 	supplyTester.actualResistance = supplyTester.onResistance + supplyTester.correctionResistance;
 	activateSetRelay();
+	supplyTester.status &= ~onResistanceBlinkMode;
 }
 void resetSetRelay(void){
 	supplyTester.relayToSet = supplyTester.relayWork;
 }
-uint8_t setRelayAndActualWorkIsEqual(void){
-	return (supplyTester.relayToSet == supplyTester.relayWork) ? 1 : 0;
+uint8_t isBlinkMode(void){
+	return (supplyTester.status & onResistanceBlinkMode) ? 1 : 0;
 }
 
 char* getTemperatureSensorString(void){
