@@ -232,6 +232,69 @@ static void activateSetRelay(void){
 	else if(supplyTester.relayWork == relay1and4){
 		setSwitch(1, 0, 0, 1);
 	}
+	else if(supplyTester.relayWork == relay1and2and3){
+		setSwitch(0, 1, 1, 1);
+	}
+	else if(supplyTester.relayWork == relay1and2and4){
+		setSwitch(1, 0, 1, 1);
+	}
+	else if(supplyTester.relayWork == relay1and3and4){
+		setSwitch(1, 1, 0, 1);
+	}
+	else if(supplyTester.relayWork == relay2){
+		setSwitch(0, 0, 1, 0);
+	}
+	else if(supplyTester.relayWork == relay2and3){
+		setSwitch(0, 1, 1, 0);
+	}
+	else if(supplyTester.relayWork == relay2and4){
+		setSwitch(1, 0, 1, 0);
+	}
+	else if(supplyTester.relayWork == relay2and3and4){
+		setSwitch(1, 1, 1, 0);
+	}
+	else if(supplyTester.relayWork == relay3){
+		setSwitch(0, 1, 0, 0);
+	}
+	else if(supplyTester.relayWork == relay3and4){
+		setSwitch(1, 1, 0, 0);
+	}
+	else if(supplyTester.relayWork == relay4){
+		setSwitch(1, 0, 0, 0);
+	}
+	else if(supplyTester.relayWork == relay1and2and3and4){
+		setSwitch(1, 1, 1, 1);
+	}
+}
+char *getCurrentString(void){
+	static char currentString[10] = {0};
+	static uint32_t generateTime = 0;
+	static float beforCurrent = (float)0xFF;
+	float current;
+
+	if(supplyTester.relayWork == none)
+		current = 0;
+	else
+		current = (float)((adc[0] * 3.3/409.5)/supplyTester.actualResistance);
+
+	if (!(beforCurrent + 0.05 > current && beforCurrent - 0.05 < current) && generateTime + 1000 < getSystemMSTime()){
+		beforCurrent = current;
+		uint8_t integer = current;
+		uint8_t decimal = (current - integer) * 100;
+		generateTime = getSystemMSTime();
+
+		if(decimal < 10)
+			sprintf(currentString, "%d.0%d[A]", integer, decimal);
+		else
+			sprintf(currentString, "%d.%d[A]", integer, decimal);
+	}
+	return currentString;
+}
+void disableRelays(void){
+	HAL_GPIO_WritePin(switch1_GPIO_Port, switch1_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(switch2_GPIO_Port, switch2_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(switch3_GPIO_Port, switch3_Pin, GPIO_PIN_RESET);
+	HAL_GPIO_WritePin(switch4_GPIO_Port, switch4_Pin, GPIO_PIN_RESET);
 }
 void acceptSetRelay(void){
 	supplyTester.relayWork = supplyTester.relayToSet;

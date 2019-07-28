@@ -8,6 +8,7 @@
 
 static char relayOn[10] = {0};
 static char temp[10] = {0};
+static char current[10] = {0};
 
 void printCurrentView(void){
 	static LCDView printedView = repeatThisView;
@@ -169,6 +170,8 @@ void printCurrentView(void){
 			LCD_WriteText(getTemperatureSensorString());
 			LCD_GoTo(0, 15);
 			LCD_WriteText("C");
+			LCD_GoTo(1, 0);
+			LCD_WriteText(getCurrentString());
 
 			printedView = workingProgramFirstView;
 			break;
@@ -183,6 +186,11 @@ void printCurrentView(void){
 				LCD_WriteText(getTemperatureSensorString());
 			}
 			strcpy(temp, getTemperatureSensorString());
+			if(!strstr(getCurrentString(), current)){
+				LCD_GoTo(1, 0);
+				LCD_WriteText(getCurrentString());
+			}
+			strcpy(current, getCurrentString());
 
 			printedView = repeatThisView;
 			break;
