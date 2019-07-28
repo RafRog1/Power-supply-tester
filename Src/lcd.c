@@ -202,7 +202,7 @@ void printCurrentView(void){
 			break;
 		case workingProgramBlinkView2:
 			LCD_GoTo(0, 0);
-			LCD_WriteText(getRelayOn());
+			LCD_WriteText(getRelayOnBlink());
 
 			printedView = workingProgramBlinkView2;
 			break;
