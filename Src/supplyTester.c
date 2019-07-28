@@ -101,63 +101,63 @@ char *getRelayOnBlink(void){
 		sprintf(relayDescription, "Przerwa");
 		return relayDescription;
 	}
-	else if(supplyTester.relayWork == relay1){
+	else if(supplyTester.relayToSet == relay1){
 		integer = calculateResistanceOfResostors(0, 0, 0, 1);
 		decimal = (calculateResistanceOfResostors(0, 0, 0, 1) - integer) * 10;
 	}
-	else if(supplyTester.relayWork == relay1and2){
+	else if(supplyTester.relayToSet == relay1and2){
 		integer = calculateResistanceOfResostors(0, 0, 1, 1);
 		decimal = (calculateResistanceOfResostors(0, 0, 1, 1) - integer) * 10;
 	}
-	else if(supplyTester.relayWork == relay1and3){
+	else if(supplyTester.relayToSet == relay1and3){
 		integer = calculateResistanceOfResostors(0, 1, 0, 1);
 		decimal = (calculateResistanceOfResostors(0, 1, 0, 1) - integer) * 10;
 	}
-	else if(supplyTester.relayWork == relay1and4){
+	else if(supplyTester.relayToSet == relay1and4){
 		integer = calculateResistanceOfResostors(1, 0, 0, 1);
 		decimal = (calculateResistanceOfResostors(1, 0, 0, 1) - integer) * 10;
 	}
-	else if(supplyTester.relayWork == relay1and2and3){
+	else if(supplyTester.relayToSet == relay1and2and3){
 		integer = calculateResistanceOfResostors(0, 1, 1, 1);
 		decimal = (calculateResistanceOfResostors(0, 1, 1, 1) - integer) * 10;
 	}
-	else if(supplyTester.relayWork == relay1and2and4){
+	else if(supplyTester.relayToSet == relay1and2and4){
 		integer = calculateResistanceOfResostors(1, 0, 1, 1);
 		decimal = (calculateResistanceOfResostors(1, 0, 1, 1) - integer) * 10;
 	}
-	else if(supplyTester.relayWork == relay1and3and4){
+	else if(supplyTester.relayToSet == relay1and3and4){
 		integer = calculateResistanceOfResostors(1, 1, 0, 1);
 		decimal = (calculateResistanceOfResostors(1, 1, 0, 1) - integer) * 10;
 	}
-	else if(supplyTester.relayWork == relay2){
+	else if(supplyTester.relayToSet == relay2){
 		integer = calculateResistanceOfResostors(0, 0, 1, 0);
 		decimal = (calculateResistanceOfResostors(0, 0, 1, 0) - integer) * 10;
 	}
-	else if(supplyTester.relayWork == relay2and3){
+	else if(supplyTester.relayToSet == relay2and3){
 		integer = calculateResistanceOfResostors(0, 1, 1, 0);
 		decimal = (calculateResistanceOfResostors(0, 1, 1, 0) - integer) * 10;
 	}
-	else if(supplyTester.relayWork == relay2and4){
+	else if(supplyTester.relayToSet == relay2and4){
 		integer = calculateResistanceOfResostors(1, 0, 1, 0);
 		decimal = (calculateResistanceOfResostors(1, 0, 1, 0) - integer) * 10;
 	}
-	else if(supplyTester.relayWork == relay2and3and4){
+	else if(supplyTester.relayToSet == relay2and3and4){
 		integer = calculateResistanceOfResostors(1, 1, 1, 0);
 		decimal = (calculateResistanceOfResostors(1, 1, 1, 0) - integer) * 10;
 	}
-	else if(supplyTester.relayWork == relay3){
+	else if(supplyTester.relayToSet == relay3){
 		integer = calculateResistanceOfResostors(0, 1, 0, 0);
 		decimal = (calculateResistanceOfResostors(0, 1, 0, 0) - integer) * 10;
 	}
-	else if(supplyTester.relayWork == relay3and4){
+	else if(supplyTester.relayToSet == relay3and4){
 		integer = calculateResistanceOfResostors(1, 1, 0, 0);
 		decimal = (calculateResistanceOfResostors(1, 1, 0, 0) - integer) * 10;
 	}
-	else if(supplyTester.relayWork == relay4){
+	else if(supplyTester.relayToSet == relay4){
 		integer = calculateResistanceOfResostors(1, 0, 0, 0);
 		decimal = (calculateResistanceOfResostors(1, 0, 0, 0) - integer) * 10;
 	}
-	else if(supplyTester.relayWork == relay1and2and3and4){
+	else if(supplyTester.relayToSet == relay1and2and3and4){
 		integer = calculateResistanceOfResostors(1, 1, 1, 1);
 		decimal = (calculateResistanceOfResostors(1, 1, 1, 1) - integer) * 10;
 	}
